@@ -1,0 +1,29 @@
+#col1 {
+    width: 300px;
+    margin-right: 60px;
+}
+
+#usr1 {
+    margin-top: 23px;
+}
+
+#submit {
+    align;
+    margin-top: 35px;
+    text-align: center;
+    width: 100px;
+    margin-left: 130px;
+    border-radius: 30px;
+}
+
+div.row {
+    margin-top: 300px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#col2 {
+    width: 200px;
+    margin-left: 50px;
+}
+

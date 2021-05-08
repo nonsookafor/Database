@@ -1,20 +1,22 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 app = Flask(__name__)
 
-firstname = ""
-lastname = ""
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///name.db'
 db = SQLAlchemy(app)
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    fname = db.Column(db.String(80), unique = True)
-    lname = db.Column(db.String(80), unique = True)
+    fname = db.Column(db.String(80), nullable = True)
+    lname = db.Column(db.String(80), nullable = True)
+    date = db.Column(db.DateTime, default = datetime.now())
 
-    def __init__(self, fname, lname):
+    def __init__(self, fname, lname, date):
         self.fname = fname
         self.lname = lname
+        self.date = date
 
     def __repr__(self):
         return U'<User%r' % self.fname
@@ -26,10 +28,11 @@ def home():
     else:
         firstname = request.form['fname']
         lastname = request.form['lname']
-        user = User(fname=firstname, lname=lastname)
+        user = User(fname=firstname, lname=lastname, date = datetime.now())
         db.session.add(user)
         db.session.commit()
-        return "Gotten"
+        the_name = User.query.all()
+        return render_template("get.html", names = the_name)
 
 
 
